@@ -1,579 +1,2457 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>我的网站</title>
-    <meta name="description" content="欢迎来到我的个人网站">
-
-    <style>
-        /* =========================
-           基础设置
-        ========================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                "Microsoft YaHei",
-                sans-serif;
-
-            color: #ffffff;
-            background: #080b14;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* =========================
-           背景
-        ========================= */
-        body::before {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            top: -180px;
-            left: -150px;
-            background: rgba(90, 80, 255, 0.25);
-            filter: blur(100px);
-            border-radius: 50%;
-            z-index: -1;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            right: -180px;
-            bottom: -180px;
-            background: rgba(0, 200, 255, 0.18);
-            filter: blur(100px);
-            border-radius: 50%;
-            z-index: -1;
-        }
-
-        /* =========================
-           导航栏
-        ========================= */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-
-            background: rgba(8, 11, 20, 0.65);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-container {
-            max-width: 1100px;
-            margin: auto;
-            height: 70px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 25px;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: #7c6cff;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #b9bfd0;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        /* =========================
-           首页
-        ========================= */
-        .hero {
-            min-height: 100vh;
-            max-width: 1100px;
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-            padding: 100px 25px 60px;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .badge {
-            display: inline-block;
-
-            padding: 8px 16px;
-            margin-bottom: 25px;
-
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 999px;
-
-            background: rgba(255, 255, 255, 0.05);
-            color: #bfc5d8;
-
-            font-size: 13px;
-
-            animation: fadeUp 0.8s ease;
-        }
-
-        .hero h1 {
-            font-size: clamp(48px, 8vw, 88px);
-            line-height: 1.05;
-            font-weight: 800;
-
-            margin-bottom: 25px;
-
-            letter-spacing: -3px;
-
-            animation: fadeUp 1s ease;
-        }
-
-        .gradient-text {
-            background: linear-gradient(
-                90deg,
-                #8b7cff,
-                #55d9ff,
-                #8b7cff
-            );
-
-            background-size: 200% auto;
-
-            color: transparent;
-            background-clip: text;
-            -webkit-background-clip: text;
-
-            animation: gradientMove 4s linear infinite;
-        }
-
-        .hero p {
-            color: #aeb5c8;
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 35px;
-
-            animation: fadeUp 1.2s ease;
-        }
-
-        /* =========================
-           按钮
-        ========================= */
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-
-            animation: fadeUp 1.4s ease;
-        }
-
-        .btn {
-            padding: 13px 25px;
-            border-radius: 12px;
-
-            font-size: 15px;
-            font-weight: 600;
-
-            transition: 0.3s;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #080b14;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-secondary {
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* =========================
-           内容区域
-        ========================= */
-        section {
-            max-width: 1100px;
-            margin: auto;
-            padding: 100px 25px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 38px;
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: #8f96aa;
-        }
-
-        /* =========================
-           卡片
-        ========================= */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card {
-            padding: 30px;
-
-            border-radius: 20px;
-
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-
-            transition: 0.35s;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-
-            border-color: rgba(255, 255, 255, 0.18);
-
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 14px;
-
-            background: rgba(124, 108, 255, 0.15);
-
-            font-size: 23px;
-            margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #9299ad;
-            font-size: 14px;
-        }
-
-        /* =========================
-           关于
-        ========================= */
-        .about {
-            text-align: center;
-            max-width: 750px;
-        }
-
-        .about p {
-            color: #aeb5c8;
-            font-size: 16px;
-        }
-
-        /* =========================
-           页脚
-        ========================= */
-        footer {
-            text-align: center;
-
-            padding: 35px 20px;
-
-            color: #6f7689;
-
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-
-            font-size: 13px;
-        }
-
-        /* =========================
-           动画
-        ========================= */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% center;
-            }
-
-            100% {
-                background-position: 200% center;
-            }
-        }
-
-        /* =========================
-           手机适配
-        ========================= */
-        @media (max-width: 700px) {
-
-            .nav-container {
-                height: 60px;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .nav-links a {
-                font-size: 12px;
-            }
-
-            .hero {
-                padding-top: 90px;
-            }
-
-            .hero h1 {
-                font-size: 50px;
-                letter-spacing: -2px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            section {
-                padding: 70px 20px;
-            }
-
-            .section-title h2 {
-                font-size: 30px;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<title>GraphX · 高级函数绘图器</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#f4f6fb;
+    --surface:#ffffff;
+    --surface2:#f8fafc;
+    --text:#111827;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --grid:#e7eaf0;
+    --axis:#8b95a7;
+    --primary:#4f46e5;
+    --primary-soft:#eef2ff;
+    --danger:#ef4444;
+    --shadow:0 12px 35px rgba(15,23,42,.08);
+}
+
+body.dark{
+    --bg:#090d18;
+    --surface:#111827;
+    --surface2:#151d2d;
+    --text:#f3f4f6;
+    --muted:#94a3b8;
+    --border:#273247;
+    --grid:#202a3b;
+    --axis:#66758d;
+    --primary:#818cf8;
+    --primary-soft:#1d2440;
+    --shadow:0 16px 45px rgba(0,0,0,.35);
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+    overflow:hidden;
+}
+
+body{
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Microsoft YaHei",
+        sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    height:62px;
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 16px;
+
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+
+    z-index:20;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-logo{
+    width:36px;
+    height:36px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:11px;
+
+    background:linear-gradient(
+        135deg,
+        #4f46e5,
+        #8b5cf6
+    );
+
+    color:white;
+    font-weight:800;
+    font-size:19px;
+
+    box-shadow:
+        0 7px 18px rgba(79,70,229,.25);
+}
+
+.brand-name{
+    font-weight:800;
+    letter-spacing:-.4px;
+}
+
+.brand-sub{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:1px;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.icon-btn{
+    width:38px;
+    height:38px;
+
+    border:0;
+    border-radius:10px;
+
+    background:transparent;
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    transition:.18s;
+}
+
+.icon-btn:hover{
+    background:var(--surface2);
+}
+
+.icon-btn:active{
+    transform:scale(.94);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.main{
+    flex:1;
+    min-height:0;
+
+    display:flex;
+
+    gap:10px;
+    padding:10px;
+}
+
+/* =========================
+   LEFT PANEL
+========================= */
+
+.sidebar{
+    width:320px;
+    min-width:320px;
+
+    display:flex;
+    flex-direction:column;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+    border-radius:15px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+}
+
+.sidebar-header{
+    padding:14px 14px 9px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.sidebar-title-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.sidebar-title{
+    font-weight:750;
+    font-size:14px;
+}
+
+.count{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.add-expression{
+    width:100%;
+    height:38px;
+
+    margin-top:10px;
+
+    border:0;
+    border-radius:10px;
+
+    background:var(--primary);
+    color:white;
+
+    font-weight:650;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.add-expression:hover{
+    filter:brightness(1.05);
+}
+
+.expressions{
+    flex:1;
+    overflow-y:auto;
+
+    padding:10px;
+
+    scrollbar-width:thin;
+}
+
+/* =========================
+   EXPRESSION ITEM
+========================= */
+
+.expression{
+    position:relative;
+
+    display:flex;
+    align-items:flex-start;
+
+    gap:8px;
+
+    padding:10px;
+
+    margin-bottom:8px;
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    background:var(--surface2);
+
+    transition:
+        border-color .18s,
+        box-shadow .18s;
+}
+
+.expression:focus-within{
+    border-color:var(--primary);
+    box-shadow:
+        0 0 0 3px rgba(79,70,229,.08);
+}
+
+.expression-color{
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+
+    margin-top:6px;
+
+    cursor:pointer;
+}
+
+.expression-main{
+    flex:1;
+    min-width:0;
+}
+
+.expression-input{
+    width:100%;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:15px;
+    font-weight:600;
+
+    padding:3px 0;
+}
+
+.expression-input::placeholder{
+    color:var(--muted);
+}
+
+.expression-tools{
+    display:flex;
+    align-items:center;
+    gap:2px;
+}
+
+.small-btn{
+    width:27px;
+    height:27px;
+
+    border:0;
+    border-radius:7px;
+
+    background:transparent;
+    color:var(--muted);
+
+    cursor:pointer;
+}
+
+.small-btn:hover{
+    background:var(--surface);
+    color:var(--text);
+}
+
+.small-btn.delete:hover{
+    color:var(--danger);
+}
+
+.domain-input{
+    width:100%;
+
+    margin-top:5px;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.domain-input::placeholder{
+    color:var(--muted);
+}
+
+/* =========================
+   BOTTOM
+========================= */
+
+.sidebar-bottom{
+    padding:10px;
+
+    border-top:1px solid var(--border);
+}
+
+.quick-title{
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.quick-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.quick{
+    border:0;
+
+    padding:6px 8px;
+
+    border-radius:8px;
+
+    background:var(--primary-soft);
+    color:var(--primary);
+
+    font-size:11px;
+    font-weight:650;
+
+    cursor:pointer;
+}
+
+/* =========================
+   GRAPH
+========================= */
+
+.graph{
+    position:relative;
+
+    flex:1;
+    min-width:0;
+    min-height:0;
+
+    overflow:hidden;
+
+    border:1px solid var(--border);
+    border-radius:15px;
+
+    background:var(--surface);
+
+    box-shadow:var(--shadow);
+}
+
+#canvas{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    cursor:grab;
+
+    touch-action:none;
+}
+
+#canvas.dragging{
+    cursor:grabbing;
+}
+
+/* =========================
+   GRAPH TOOLBAR
+========================= */
+
+.graph-toolbar{
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    display:flex;
+    align-items:center;
+    gap:4px;
+
+    padding:5px;
+
+    border:1px solid var(--border);
+    border-radius:11px;
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 7px 24px rgba(15,23,42,.08);
+
+    z-index:5;
+}
+
+body.dark .graph-toolbar{
+    background:rgba(17,24,39,.82);
+}
+
+.toolbar-btn{
+    width:34px;
+    height:34px;
+
+    border:0;
+    border-radius:8px;
+
+    background:transparent;
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+.toolbar-btn:hover{
+    background:var(--surface2);
+}
+
+.toolbar-divider{
+    width:1px;
+    height:22px;
+
+    background:var(--border);
+
+    margin:0 2px;
+}
+
+/* =========================
+   COORDINATE DISPLAY
+========================= */
+
+.coordinates{
+    position:absolute;
+
+    left:12px;
+    bottom:12px;
+
+    padding:7px 10px;
+
+    border:1px solid var(--border);
+    border-radius:9px;
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(12px);
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    pointer-events:none;
+
+    z-index:5;
+}
+
+body.dark .coordinates{
+    background:rgba(17,24,39,.82);
+}
+
+/* =========================
+   ZOOM
+========================= */
+
+.zoom-panel{
+    position:absolute;
+
+    right:12px;
+    bottom:12px;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border:1px solid var(--border);
+    border-radius:9px;
+
+    background:var(--surface);
+
+    box-shadow:
+        0 7px 20px rgba(15,23,42,.08);
+
+    z-index:5;
+}
+
+.zoom-btn{
+    width:38px;
+    height:34px;
+
+    border:0;
+
+    background:transparent;
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:17px;
+}
+
+.zoom-btn:hover{
+    background:var(--surface2);
+}
+
+.zoom-btn + .zoom-btn{
+    border-top:1px solid var(--border);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:720px){
+
+    .header{
+        height:56px;
+        padding:0 10px;
+    }
+
+    .brand-sub{
+        display:none;
+    }
+
+    .brand-name{
+        font-size:14px;
+    }
+
+    .main{
+        flex-direction:column;
+        padding:7px;
+        gap:7px;
+    }
+
+    .sidebar{
+        width:100%;
+        min-width:0;
+        height:175px;
+        flex-shrink:0;
+    }
+
+    .sidebar-header{
+        padding:8px;
+    }
+
+    .add-expression{
+        height:32px;
+        margin-top:6px;
+        font-size:12px;
+    }
+
+    .expressions{
+        display:flex;
+        gap:7px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        padding:7px;
+    }
+
+    .expression{
+        min-width:255px;
+        margin:0;
+    }
+
+    .sidebar-bottom{
+        display:none;
+    }
+
+    .graph-toolbar{
+        top:8px;
+        right:8px;
+    }
+
+    .coordinates{
+        left:8px;
+        bottom:8px;
+    }
+
+    .zoom-panel{
+        right:8px;
+        bottom:8px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- 导航栏 -->
-    <nav>
-        <div class="nav-container">
+<div class="app">
 
-            <a href="#" class="logo">
-                My<span>Website</span>
-            </a>
+<header class="header">
 
-            <ul class="nav-links">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#features">特色</a></li>
-                <li><a href="#about">关于</a></li>
-            </ul>
+    <div class="brand">
 
-        </div>
-    </nav>
-
-
-    <!-- 首页 -->
-    <main id="home">
-
-        <div class="hero">
-
-            <div class="hero-content">
-
-                <div class="badge">
-                    ✨ 欢迎来到我的网站
-                </div>
-
-                <h1>
-                    创造属于<br>
-                    <span class="gradient-text">你的数字世界</span>
-                </h1>
-
-                <p>
-                    这是我的个人网站，一个简洁、现代、快速的数字空间。
-                    在这里分享我的项目、想法和作品。
-                </p>
-
-                <div class="buttons">
-
-                    <a href="#features" class="btn btn-primary">
-                        探索网站 →
-                    </a>
-
-                    <a href="#about" class="btn btn-secondary">
-                        了解更多
-                    </a>
-
-                </div>
-
-            </div>
-
+        <div class="brand-logo">
+            ƒ
         </div>
 
-    </main>
+        <div>
+            <div class="brand-name">
+                GraphX
+            </div>
+
+            <div class="brand-sub">
+                Advanced Function Graphing
+            </div>
+        </div>
+
+    </div>
 
 
-    <!-- 特色 -->
-    <section id="features">
+    <div class="header-actions">
 
-        <div class="section-title">
+        <button
+            class="icon-btn"
+            id="themeBtn"
+            title="切换主题">
+            ◐
+        </button>
 
-            <h2>网站特色</h2>
+        <button
+            class="icon-btn"
+            id="gridBtn"
+            title="显示/隐藏网格">
+            ▦
+        </button>
 
-            <p>
-                简洁、快速，并且适配手机
-            </p>
+        <button
+            class="icon-btn"
+            id="fullscreenBtn"
+            title="全屏">
+            ⛶
+        </button>
+
+        <button
+            class="icon-btn"
+            id="exportBtn"
+            title="导出图片">
+            ↓
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="sidebar-title-row">
+
+                <div class="sidebar-title">
+                    表达式
+                </div>
+
+                <div
+                    class="count"
+                    id="count">
+                    0 个
+                </div>
+
+            </div>
+
+            <button
+                class="add-expression"
+                id="addBtn">
+                ＋ 添加表达式
+            </button>
 
         </div>
 
 
-        <div class="cards">
+        <div
+            class="expressions"
+            id="expressions">
+        </div>
 
-            <div class="card">
 
-                <div class="card-icon">
-                    ⚡
-                </div>
+        <div class="sidebar-bottom">
 
-                <h3>快速</h3>
+            <div class="quick-title">
+                快速添加
+            </div>
 
-                <p>
-                    使用轻量级 HTML 和 CSS，
-                    页面加载速度快。
-                </p>
+            <div class="quick-list">
+
+                <button
+                    class="quick"
+                    data-exp="sin(x)">
+                    sin(x)
+                </button>
+
+                <button
+                    class="quick"
+                    data-exp="cos(x)">
+                    cos(x)
+                </button>
+
+                <button
+                    class="quick"
+                    data-exp="x^2">
+                    x²
+                </button>
+
+                <button
+                    class="quick"
+                    data-exp="sqrt(x)">
+                    √x
+                </button>
+
+                <button
+                    class="quick"
+                    data-exp="1/x">
+                    1/x
+                </button>
+
+                <button
+                    class="quick"
+                    data-exp="ln(x)">
+                    ln(x)
+                </button>
+
+                <button
+                    class="quick"
+                    data-exp="tan(x)">
+                    tan(x)
+                </button>
 
             </div>
 
+        </div>
 
-            <div class="card">
-
-                <div class="card-icon">
-                    📱
-                </div>
-
-                <h3>响应式</h3>
-
-                <p>
-                    自动适配电脑、平板和手机，
-                    在不同屏幕上都能正常显示。
-                </p>
-
-            </div>
+    </aside>
 
 
-            <div class="card">
+    <section class="graph">
 
-                <div class="card-icon">
-                    🎨
-                </div>
+        <canvas id="canvas"></canvas>
 
-                <h3>现代设计</h3>
 
-                <p>
-                    使用渐变、玻璃效果和动画，
-                    打造现代化的网站体验。
-                </p>
+        <div class="graph-toolbar">
 
-            </div>
+            <button
+                class="toolbar-btn"
+                id="resetBtn"
+                title="重置视图">
+                ⌂
+            </button>
+
+            <div class="toolbar-divider"></div>
+
+            <button
+                class="toolbar-btn"
+                id="minusBtn">
+                −
+            </button>
+
+            <button
+                class="toolbar-btn"
+                id="plusBtn">
+                ＋
+            </button>
+
+        </div>
+
+
+        <div
+            class="coordinates"
+            id="coordinates">
+            x: 0 &nbsp;&nbsp; y: 0
+        </div>
+
+
+        <div class="zoom-panel">
+
+            <button
+                class="zoom-btn"
+                id="zoomPlus">
+                ＋
+            </button>
+
+            <button
+                class="zoom-btn"
+                id="zoomMinus">
+                −
+            </button>
 
         </div>
 
     </section>
 
+</main>
 
-    <!-- 关于 -->
-    <section id="about">
-
-        <div class="about">
-
-            <div class="section-title">
-
-                <h2>关于这个网站</h2>
-
-            </div>
-
-            <p>
-                这是一个使用纯 HTML 和 CSS 制作的网站。
-                不需要复杂的服务器，也不需要安装任何框架。
-                上传到 GitHub 后，就可以使用 Cloudflare Pages
-                免费部署。
-            </p>
-
-        </div>
-
-    </section>
+</div>
 
 
-    <!-- 页脚 -->
-    <footer>
+<script>
+/* =====================================================
+   GraphX Advanced
+===================================================== */
 
-        © 2026 MyWebsite · Built with HTML & CSS
+const canvas =
+    document.getElementById("canvas");
 
-    </footer>
+const ctx =
+    canvas.getContext("2d", {
+        alpha:false
+    });
+
+const graph =
+    document.querySelector(".graph");
+
+const expressions =
+    document.getElementById("expressions");
+
+const count =
+    document.getElementById("count");
+
+const coordinates =
+    document.getElementById("coordinates");
+
+
+/* =========================
+   State
+========================= */
+
+const colors = [
+    "#4f46e5",
+    "#e11d48",
+    "#0891b2",
+    "#ea580c",
+    "#16a34a",
+    "#9333ea",
+    "#0284c7",
+    "#ca8a04"
+];
+
+let items = [
+    {
+        expression:"sin(x)",
+        domain:"",
+        color:colors[0],
+        visible:true
+    }
+];
+
+let view = {
+    x:0,
+    y:0,
+    scale:70
+};
+
+let width=0;
+let height=0;
+
+let dpr=1;
+
+let showGrid=true;
+
+let raf=null;
+
+let dragging=false;
+
+let lastPointer={
+    x:0,
+    y:0
+};
+
+
+/* =========================
+   Resize
+========================= */
+
+function resize(){
+
+    const rect =
+        graph.getBoundingClientRect();
+
+    width=rect.width;
+    height=rect.height;
+
+    dpr=Math.min(
+        window.devicePixelRatio||1,
+        2
+    );
+
+    canvas.width=
+        Math.floor(width*dpr);
+
+    canvas.height=
+        Math.floor(height*dpr);
+
+    canvas.style.width=
+        width+"px";
+
+    canvas.style.height=
+        height+"px";
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    draw();
+}
+
+window.addEventListener(
+    "resize",
+    resize
+);
+
+
+/* =========================
+   Coordinate
+========================= */
+
+function worldToScreen(x,y){
+
+    return {
+        x:
+            width/2+
+            (x-view.x)*view.scale,
+
+        y:
+            height/2-
+            (y-view.y)*view.scale
+    };
+}
+
+
+function screenToWorld(x,y){
+
+    return {
+        x:
+            (x-width/2)/
+            view.scale+
+            view.x,
+
+        y:
+            -(y-height/2)/
+            view.scale+
+            view.y
+    };
+}
+
+
+/* =========================
+   Math parser
+========================= */
+
+function createFunction(source){
+
+    let e=source
+        .trim()
+        .toLowerCase();
+
+    e=e
+        .replace(/^y\s*=\s*/,"")
+        .replace(/^f\s*\(\s*x\s*\)\s*=\s*/,"")
+        .replace(/π/g,"pi");
+
+    e=e.replace(
+        /\bpi\b/g,
+        "Math.PI"
+    );
+
+    e=e.replace(
+        /\be\b/g,
+        "Math.E"
+    );
+
+    e=e.replace(
+        /\^/g,
+        "**"
+    );
+
+
+    const funcs=[
+        "sin",
+        "cos",
+        "tan",
+        "asin",
+        "acos",
+        "atan",
+        "sqrt",
+        "abs",
+        "exp",
+        "floor",
+        "ceil",
+        "round"
+    ];
+
+    funcs.forEach(name=>{
+
+        e=e.replace(
+            new RegExp(
+                "\\b"+
+                name+
+                "\\s*\\(",
+                "gi"
+            ),
+            "Math."+name+"("
+        );
+    });
+
+
+    e=e.replace(
+        /\bln\s*\(/gi,
+        "Math.log("
+    );
+
+    e=e.replace(
+        /\blog\s*\(/gi,
+        "Math.log10("
+    );
+
+
+    /* implicit multiplication */
+
+    e=e
+        .replace(
+            /(\d)\s*x/g,
+            "$1*x"
+        )
+        .replace(
+            /x\s*(\d)/g,
+            "x*$1"
+        )
+        .replace(
+            /\)\s*x/g,
+            ")*x"
+        )
+        .replace(
+            /x\s*\(/g,
+            "x*("
+        );
+
+
+    try{
+
+        const fn=
+            new Function(
+                "x",
+                `"use strict";return(${e})`
+            );
+
+        fn(0);
+
+        return fn;
+
+    }catch{
+
+        return null;
+    }
+}
+
+
+/* =========================
+   Domain
+========================= */
+
+function domainAllows(x,domain){
+
+    if(!domain.trim()){
+        return true;
+    }
+
+    const d=domain
+        .replace(/[{}]/g,"")
+        .replace(/\s/g,"");
+
+    let match;
+
+    match=d.match(
+        /^(-?\d+(?:\.\d+)?)<x<(-?\d+(?:\.\d+)?)$/
+    );
+
+    if(match){
+
+        return (
+            x>Number(match[1]) &&
+            x<Number(match[2])
+        );
+    }
+
+
+    match=d.match(
+        /^(-?\d+(?:\.\d+)?)<=x<=(-?\d+(?:\.\d+)?)$/
+    );
+
+    if(match){
+
+        return (
+            x>=Number(match[1]) &&
+            x<=Number(match[2])
+        );
+    }
+
+
+    match=d.match(
+        /^x>(-?\d+(?:\.\d+)?)$/
+    );
+
+    if(match){
+
+        return x>Number(match[1]);
+    }
+
+
+    match=d.match(
+        /^x>=(-?\d+(?:\.\d+)?)$/
+    );
+
+    if(match){
+
+        return x>=Number(match[1]);
+    }
+
+
+    match=d.match(
+        /^x<(-?\d+(?:\.\d+)?)$/
+    );
+
+    if(match){
+
+        return x<Number(match[1]);
+    }
+
+
+    match=d.match(
+        /^x<=(-?\d+(?:\.\d+)?)$/
+    );
+
+    if(match){
+
+        return x<=Number(match[1]);
+    }
+
+
+    return true;
+}
+
+
+/* =========================
+   Nice step
+========================= */
+
+function niceStep(raw){
+
+    const power=
+        Math.pow(
+            10,
+            Math.floor(
+                Math.log10(raw)
+            )
+        );
+
+    const n=raw/power;
+
+    let step;
+
+    if(n<1.5) step=1;
+    else if(n<3) step=2;
+    else if(n<7) step=5;
+    else step=10;
+
+    return step*power;
+}
+
+
+/* =========================
+   Grid
+========================= */
+
+function drawGrid(){
+
+    const styles=
+        getComputedStyle(document.body);
+
+    ctx.fillStyle=
+        styles.getPropertyValue(
+            "--surface"
+        );
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    if(!showGrid){
+
+        drawAxes();
+
+        return;
+    }
+
+
+    const left=
+        view.x-
+        width/(2*view.scale);
+
+    const right=
+        view.x+
+        width/(2*view.scale);
+
+    const bottom=
+        view.y-
+        height/(2*view.scale);
+
+    const top=
+        view.y+
+        height/(2*view.scale);
+
+
+    const step=
+        niceStep(
+            75/view.scale
+        );
+
+
+    ctx.strokeStyle=
+        styles.getPropertyValue(
+            "--grid"
+        );
+
+    ctx.lineWidth=1;
+
+    ctx.beginPath();
+
+
+    const sx=
+        Math.floor(left/step)*step;
+
+    for(
+        let x=sx;
+        x<=right;
+        x+=step
+    ){
+
+        const px=
+            worldToScreen(x,0).x;
+
+        ctx.moveTo(px,0);
+        ctx.lineTo(px,height);
+    }
+
+
+    const sy=
+        Math.floor(bottom/step)*step;
+
+    for(
+        let y=sy;
+        y<=top;
+        y+=step
+    ){
+
+        const py=
+            worldToScreen(0,y).y;
+
+        ctx.moveTo(0,py);
+        ctx.lineTo(width,py);
+    }
+
+    ctx.stroke();
+
+    drawAxes();
+}
+
+
+/* =========================
+   Axes
+========================= */
+
+function drawAxes(){
+
+    const styles=
+        getComputedStyle(document.body);
+
+    const axis=
+        worldToScreen(0,0);
+
+    ctx.strokeStyle=
+        styles.getPropertyValue(
+            "--axis"
+        );
+
+    ctx.lineWidth=1.5;
+
+    ctx.beginPath();
+
+    if(
+        axis.x>=0 &&
+        axis.x<=width
+    ){
+
+        ctx.moveTo(axis.x,0);
+        ctx.lineTo(axis.x,height);
+    }
+
+    if(
+        axis.y>=0 &&
+        axis.y<=height
+    ){
+
+        ctx.moveTo(0,axis.y);
+        ctx.lineTo(width,axis.y);
+    }
+
+    ctx.stroke();
+
+
+    /* arrows */
+
+    ctx.fillStyle=
+        styles.getPropertyValue(
+            "--axis"
+        );
+
+    if(
+        axis.y>=0 &&
+        axis.y<=height
+    ){
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            width-4,
+            axis.y
+        );
+
+        ctx.lineTo(
+            width-12,
+            axis.y-4
+        );
+
+        ctx.lineTo(
+            width-12,
+            axis.y+4
+        );
+
+        ctx.closePath();
+
+        ctx.fill();
+    }
+
+
+    if(
+        axis.x>=0 &&
+        axis.x<=width
+    ){
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            axis.x,
+            4
+        );
+
+        ctx.lineTo(
+            axis.x-4,
+            12
+        );
+
+        ctx.lineTo(
+            axis.x+4,
+            12
+        );
+
+        ctx.closePath();
+
+        ctx.fill();
+    }
+
+
+    drawLabels();
+}
+
+
+/* =========================
+   Labels
+========================= */
+
+function drawLabels(){
+
+    const styles=
+        getComputedStyle(document.body);
+
+    const left=
+        view.x-
+        width/(2*view.scale);
+
+    const right=
+        view.x+
+        width/(2*view.scale);
+
+    const bottom=
+        view.y-
+        height/(2*view.scale);
+
+    const top=
+        view.y+
+        height/(2*view.scale);
+
+    const step=
+        niceStep(
+            75/view.scale
+        );
+
+    ctx.fillStyle=
+        styles.getPropertyValue(
+            "--muted"
+        );
+
+    ctx.font=
+        "11px Arial";
+
+    const axis=
+        worldToScreen(0,0);
+
+
+    let start=
+        Math.floor(left/step)*step;
+
+    for(
+        let x=start;
+        x<=right;
+        x+=step
+    ){
+
+        if(
+            Math.abs(x)<step/100
+        ) continue;
+
+        const px=
+            worldToScreen(x,0).x;
+
+        const py=
+            Math.min(
+                Math.max(
+                    axis.y+16,
+                    14
+                ),
+                height-5
+            );
+
+        ctx.fillText(
+            formatNumber(x),
+            px+4,
+            py
+        );
+    }
+
+
+    start=
+        Math.floor(bottom/step)*step;
+
+    for(
+        let y=start;
+        y<=top;
+        y+=step
+    ){
+
+        if(
+            Math.abs(y)<step/100
+        ) continue;
+
+        const py=
+            worldToScreen(0,y).y;
+
+        const px=
+            Math.min(
+                Math.max(
+                    axis.x+7,
+                    7
+                ),
+                width-35
+            );
+
+        ctx.fillText(
+            formatNumber(y),
+            px,
+            py-5
+        );
+    }
+}
+
+
+function formatNumber(n){
+
+    if(
+        Math.abs(n)<1e-10
+    ){
+        return "0";
+    }
+
+    if(
+        Math.abs(n)>=1000
+    ){
+        return n.toExponential(1);
+    }
+
+    return Number(
+        n.toFixed(5)
+    ).toString();
+}
+
+
+/* =========================
+   Draw Function
+========================= */
+
+function drawFunction(item){
+
+    if(!item.visible){
+        return;
+    }
+
+    const fn=
+        createFunction(
+            item.expression
+        );
+
+    if(!fn){
+        return;
+    }
+
+
+    const left=
+        view.x-
+        width/(2*view.scale);
+
+    const right=
+        view.x+
+        width/(2*view.scale);
+
+
+    const samples=
+        Math.min(
+            1800,
+            Math.max(
+                700,
+                Math.floor(width*1.6)
+            )
+        );
+
+
+    const dx=
+        (right-left)/samples;
+
+
+    ctx.strokeStyle=
+        item.color;
+
+    ctx.lineWidth=2.35;
+
+    ctx.lineCap="round";
+    ctx.lineJoin="round";
+
+    ctx.beginPath();
+
+
+    let started=false;
+    let previousY=null;
+
+
+    for(
+        let i=0;
+        i<=samples;
+        i++
+    ){
+
+        const x=
+            left+i*dx;
+
+        if(
+            !domainAllows(
+                x,
+                item.domain
+            )
+        ){
+
+            started=false;
+            previousY=null;
+
+            continue;
+        }
+
+
+        let y;
+
+        try{
+
+            y=fn(x);
+
+        }catch{
+
+            started=false;
+            previousY=null;
+
+            continue;
+        }
+
+
+        if(
+            !Number.isFinite(y) ||
+            Math.abs(y)>1e7
+        ){
+
+            started=false;
+            previousY=null;
+
+            continue;
+        }
+
+
+        const p=
+            worldToScreen(x,y);
+
+
+        if(
+            previousY!==null &&
+            Math.abs(
+                p.y-previousY
+            )>height*1.35
+        ){
+
+            started=false;
+        }
+
+
+        if(!started){
+
+            ctx.moveTo(
+                p.x,
+                p.y
+            );
+
+            started=true;
+
+        }else{
+
+            ctx.lineTo(
+                p.x,
+                p.y
+            );
+        }
+
+
+        previousY=p.y;
+    }
+
+    ctx.stroke();
+}
+
+
+/* =========================
+   Draw
+========================= */
+
+function draw(){
+
+    raf=null;
+
+    drawGrid();
+
+    for(
+        const item of items
+    ){
+
+        drawFunction(item);
+    }
+}
+
+
+function schedule(){
+
+    if(raf!==null){
+        return;
+    }
+
+    raf=
+        requestAnimationFrame(
+            draw
+        );
+}
+
+
+/* =========================
+   UI
+========================= */
+
+function render(){
+
+    expressions.innerHTML="";
+
+    items.forEach(
+        (item,index)=>{
+
+            const el=
+                document.createElement(
+                    "div"
+                );
+
+            el.className=
+                "expression";
+
+            el.innerHTML=`
+                <button
+                    class="expression-color"
+                    style="background:${item.color}"
+                    title="显示/隐藏">
+                </button>
+
+                <div class="expression-main">
+
+                    <input
+                        class="expression-input"
+                        value="${escapeHTML(item.expression)}"
+                        placeholder="例如：sin(x)"
+                        spellcheck="false"
+                    >
+
+                    <input
+                        class="domain-input"
+                        value="${escapeHTML(item.domain)}"
+                        placeholder="定义域，例如：-5 < x < 5"
+                        spellcheck="false"
+                    >
+
+                </div>
+
+                <div class="expression-tools">
+
+                    <button
+                        class="small-btn visibility">
+                        ${item.visible?"●":"○"}
+                    </button>
+
+                    <button
+                        class="small-btn delete">
+                        ×
+                    </button>
+
+                </div>
+            `;
+
+
+            const input=
+                el.querySelector(
+                    ".expression-input"
+                );
+
+            const domain=
+                el.querySelector(
+                    ".domain-input"
+                );
+
+            const color=
+                el.querySelector(
+                    ".expression-color"
+                );
+
+            const visibility=
+                el.querySelector(
+                    ".visibility"
+                );
+
+            const del=
+                el.querySelector(
+                    ".delete"
+                );
+
+
+            input.addEventListener(
+                "input",
+                ()=>{
+
+                    item.expression=
+                        input.value;
+
+                    schedule();
+                }
+            );
+
+
+            domain.addEventListener(
+                "input",
+                ()=>{
+
+                    item.domain=
+                        domain.value;
+
+                    schedule();
+                }
+            );
+
+
+            visibility.addEventListener(
+                "click",
+                ()=>{
+
+                    item.visible=
+                        !item.visible;
+
+                    render();
+                    schedule();
+                }
+            );
+
+
+            color.addEventListener(
+                "click",
+                ()=>{
+
+                    item.visible=
+                        !item.visible;
+
+                    render();
+                    schedule();
+                }
+            );
+
+
+            del.addEventListener(
+                "click",
+                ()=>{
+
+                    items.splice(
+                        index,
+                        1
+                    );
+
+                    if(
+                        items.length===0
+                    ){
+
+                        items.push({
+                            expression:"",
+                            domain:"",
+                            color:colors[0],
+                            visible:true
+                        });
+                    }
+
+                    render();
+                    schedule();
+                }
+            );
+
+
+            expressions.appendChild(el);
+        }
+    );
+
+
+    count.textContent=
+        items.length+" 个";
+}
+
+
+/* =========================
+   Escape HTML
+========================= */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+}
+
+
+/* =========================
+   Add
+========================= */
+
+document
+    .getElementById("addBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            items.push({
+                expression:"",
+                domain:"",
+                color:
+                    colors[
+                        items.length%
+                        colors.length
+                    ],
+                visible:true
+            });
+
+            render();
+
+            const inputs=
+                document.querySelectorAll(
+                    ".expression-input"
+                );
+
+            inputs[
+                inputs.length-1
+            ].focus();
+
+            schedule();
+        }
+    );
+
+
+/* =========================
+   Quick
+========================= */
+
+document
+    .querySelectorAll(".quick")
+    .forEach(button=>{
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+                items.push({
+                    expression:
+                        button.dataset.exp,
+
+                    domain:"",
+
+                    color:
+                        colors[
+                            items.length%
+                            colors.length
+                        ],
+
+                    visible:true
+                });
+
+                render();
+                schedule();
+            }
+        );
+    });
+
+
+/* =========================
+   Zoom
+========================= */
+
+function zoomAt(
+    factor,
+    px=width/2,
+    py=height/2
+){
+
+    const before=
+        screenToWorld(
+            px,
+            py
+        );
+
+    view.scale*=
+        factor;
+
+    view.scale=
+        Math.max(
+            12,
+            Math.min(
+                1500,
+                view.scale
+            )
+        );
+
+    const after=
+        screenToWorld(
+            px,
+            py
+        );
+
+    view.x+=
+        before.x-after.x;
+
+    view.y+=
+        before.y-after.y;
+
+    schedule();
+}
+
+
+function zoomCenter(factor){
+
+    zoomAt(
+        factor,
+        width/2,
+        height/2
+    );
+}
+
+
+document
+    .getElementById("plusBtn")
+    .addEventListener(
+        "click",
+        ()=>zoomCenter(1.2)
+    );
+
+document
+    .getElementById("minusBtn")
+    .addEventListener(
+        "click",
+        ()=>zoomCenter(.8333)
+    );
+
+document
+    .getElementById("zoomPlus")
+    .addEventListener(
+        "click",
+        ()=>zoomCenter(1.2)
+    );
+
+document
+    .getElementById("zoomMinus")
+    .addEventListener(
+        "click",
+        ()=>zoomCenter(.8333)
+    );
+
+
+/* =========================
+   Reset
+========================= */
+
+document
+    .getElementById("resetBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            view.x=0;
+            view.y=0;
+            view.scale=70;
+
+            schedule();
+        }
+    );
+
+
+/* =========================
+   Pointer
+========================= */
+
+canvas.addEventListener(
+    "pointerdown",
+    event=>{
+
+        dragging=true;
+
+        lastPointer.x=
+            event.clientX;
+
+        lastPointer.y=
+            event.clientY;
+
+        canvas.classList.add(
+            "dragging"
+        );
+
+        canvas.setPointerCapture(
+            event.pointerId
+        );
+    }
+);
+
+
+canvas.addEventListener(
+    "pointermove",
+    event=>{
+
+        const rect=
+            canvas.getBoundingClientRect();
+
+        const x=
+            event.clientX-
+            rect.left;
+
+        const y=
+            event.clientY-
+            rect.top;
+
+
+        const point=
+            screenToWorld(
+                x,
+                y
+            );
+
+
+        coordinates.textContent=
+            "x: "+
+            formatNumber(point.x)+
+            "   y: "+
+            formatNumber(point.y);
+
+
+        if(!dragging){
+            return;
+        }
+
+
+        const dx=
+            event.clientX-
+            lastPointer.x;
+
+        const dy=
+            event.clientY-
+            lastPointer.y;
+
+
+        view.x-=
+            dx/view.scale;
+
+        view.y+=
+            dy/view.scale;
+
+
+        lastPointer.x=
+            event.clientX;
+
+        lastPointer.y=
+            event.clientY;
+
+
+        schedule();
+    }
+);
+
+
+function stopDrag(){
+
+    dragging=false;
+
+    canvas.classList.remove(
+        "dragging"
+    );
+}
+
+
+canvas.addEventListener(
+    "pointerup",
+    stopDrag
+);
+
+canvas.addEventListener(
+    "pointercancel",
+    stopDrag
+);
+
+
+/* =========================
+   Wheel
+========================= */
+
+canvas.addEventListener(
+    "wheel",
+    event=>{
+
+        event.preventDefault();
+
+        const rect=
+            canvas.getBoundingClientRect();
+
+        const x=
+            event.clientX-
+            rect.left;
+
+        const y=
+            event.clientY-
+            rect.top;
+
+        zoomAt(
+            event.deltaY<0
+                ?1.12
+                :.89,
+            x,
+            y
+        );
+
+    },
+    {
+        passive:false
+    }
+);
+
+
+/* =========================
+   Theme
+========================= */
+
+document
+    .getElementById("themeBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            document.body.classList.toggle(
+                "dark"
+            );
+
+            localStorage.setItem(
+                "graphx-theme",
+                document.body.classList.contains(
+                    "dark"
+                )
+                    ?"dark"
+                    :"light"
+            );
+
+            schedule();
+        }
+    );
+
+
+if(
+    localStorage.getItem(
+        "graphx-theme"
+    )==="dark"
+){
+
+    document.body.classList.add(
+        "dark"
+    );
+}
+
+
+/* =========================
+   Grid
+========================= */
+
+document
+    .getElementById("gridBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            showGrid=
+                !showGrid;
+
+            schedule();
+        }
+    );
+
+
+/* =========================
+   Fullscreen
+========================= */
+
+document
+    .getElementById("fullscreenBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            if(
+                !document.fullscreenElement
+            ){
+
+                document
+                    .documentElement
+                    .requestFullscreen?.();
+
+            }else{
+
+                document
+                    .exitFullscreen?.();
+            }
+        }
+    );
+
+
+/* =========================
+   Export PNG
+========================= */
+
+document
+    .getElementById("exportBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            const link=
+                document.createElement(
+                    "a"
+                );
+
+            link.download=
+                "graphx-function.png";
+
+            link.href=
+                canvas.toDataURL(
+                    "image/png"
+                );
+
+            link.click();
+        }
+    );
+
+
+/* =========================
+   Keyboard
+========================= */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(
+            event.target.tagName==="INPUT"
+        ){
+            return;
+        }
+
+
+        if(
+            event.key==="+"||
+            event.key==="="
+        ){
+
+            zoomCenter(1.2);
+        }
+
+
+        if(
+            event.key==="-"
+        ){
+
+            zoomCenter(.8333);
+        }
+
+
+        if(
+            event.key==="0"
+        ){
+
+            view.x=0;
+            view.y=0;
+            view.scale=70;
+
+            schedule();
+        }
+    }
+);
+
+
+/* =========================
+   Start
+========================= */
+
+render();
+
+requestAnimationFrame(
+    resize
+);
+</script>
 
 </body>
 </html>
