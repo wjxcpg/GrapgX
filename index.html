@@ -3,10 +3,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>我的网站</title>
+    <meta name="description" content="欢迎来到我的个人网站">
+
+    <style>
+        /* =========================
+           基础设置
+        ========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Microsoft YaHei",
+                sans-serif;
+
+            color: #ffffff;
+            background: #080b14;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           背景
+        ========================= */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            top: -180px;
+            left: -150px;
+            background: rgba(90, 80, 255, 0.25);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            right: -180px;
+            bottom: -180px;
+            background: rgba(0, 200, 255, 0.18);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* =========================
+           导航栏
+        ========================= */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+
+            background: rgba(8, 11, 20, 0.65);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #7c6cff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b9bfd0;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* =========================
+           首页
+        ========================= */
+        .hero {
+            min-height: 100vh;
+            max-width: 1100px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            padding: 100px 25px 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 16px;
+            margin-bottom: 25px;
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.05);
+            color: #bfc5d8;
+
+            font-size: 13px;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 88px);
+            line-height: 1.05;
+            font-weight: 800;
+
+            margin-bottom: 25px;
+
+            letter-spacing: -3px;
+
+            animation: fadeUp 1s ease;
+        }
+
+        .gradient-text {
+            background: linear-gradient(
+                90deg,
+                #8b7cff,
+                #55d9ff,
+                #8b7cff
+            );
+
+            background-size: 200% auto;
+
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            animation: gradientMove 4s linear infinite;
+        }
+
+        .hero p {
+            color: #aeb5c8;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 35px;
+
+            animation: fadeUp 1.2s ease;
+        }
+
+        /* =========================
+           按钮
+        ========================= */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+
+            animation: fadeUp 1.4s ease;
+        }
+
+        .btn {
+            padding: 13px 25px;
+            border-radius: 12px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #080b14;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* =========================
+           内容区域
+        ========================= */
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 100px 25px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #8f96aa;
+        }
+
+        /* =========================
+           卡片
+        ========================= */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            padding: 30px;
+
+            border-radius: 20px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+
+            transition: 0.35s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+
+            border-color: rgba(255, 255, 255, 0.18);
+
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: rgba(124, 108, 255, 0.15);
+
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #9299ad;
+            font-size: 14px;
+        }
+
+        /* =========================
+           关于
+        ========================= */
+        .about {
+            text-align: center;
+            max-width: 750px;
+        }
+
+        .about p {
+            color: #aeb5c8;
+            font-size: 16px;
+        }
+
+        /* =========================
+           页脚
+        ========================= */
+        footer {
+            text-align: center;
+
+            padding: 35px 20px;
+
+            color: #6f7689;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           动画
+        ========================= */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        /* =========================
+           手机适配
+        ========================= */
+        @media (max-width: 700px) {
+
+            .nav-container {
+                height: 60px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero {
+                padding-top: 90px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>你好，世界！</h1>
-    <p>这是我的第一个 Cloudflare 网站。</p>
+
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+
+            <a href="#" class="logo">
+                My<span>Website</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#features">特色</a></li>
+                <li><a href="#about">关于</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- 首页 -->
+    <main id="home">
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    ✨ 欢迎来到我的网站
+                </div>
+
+                <h1>
+                    创造属于<br>
+                    <span class="gradient-text">你的数字世界</span>
+                </h1>
+
+                <p>
+                    这是我的个人网站，一个简洁、现代、快速的数字空间。
+                    在这里分享我的项目、想法和作品。
+                </p>
+
+                <div class="buttons">
+
+                    <a href="#features" class="btn btn-primary">
+                        探索网站 →
+                    </a>
+
+                    <a href="#about" class="btn btn-secondary">
+                        了解更多
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- 特色 -->
+    <section id="features">
+
+        <div class="section-title">
+
+            <h2>网站特色</h2>
+
+            <p>
+                简洁、快速，并且适配手机
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ⚡
+                </div>
+
+                <h3>快速</h3>
+
+                <p>
+                    使用轻量级 HTML 和 CSS，
+                    页面加载速度快。
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📱
+                </div>
+
+                <h3>响应式</h3>
+
+                <p>
+                    自动适配电脑、平板和手机，
+                    在不同屏幕上都能正常显示。
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🎨
+                </div>
+
+                <h3>现代设计</h3>
+
+                <p>
+                    使用渐变、玻璃效果和动画，
+                    打造现代化的网站体验。
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 关于 -->
+    <section id="about">
+
+        <div class="about">
+
+            <div class="section-title">
+
+                <h2>关于这个网站</h2>
+
+            </div>
+
+            <p>
+                这是一个使用纯 HTML 和 CSS 制作的网站。
+                不需要复杂的服务器，也不需要安装任何框架。
+                上传到 GitHub 后，就可以使用 Cloudflare Pages
+                免费部署。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- 页脚 -->
+    <footer>
+
+        © 2026 MyWebsite · Built with HTML & CSS
+
+    </footer>
+
 </body>
 </html>
